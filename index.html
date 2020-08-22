@@ -3,28 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bank Robber</title>
+  <title>Bank Miner</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="container-fluid">
   <header class="row text-center my-4">
     <div class="col-12 text-success">
-      <h1>Bank Robber</h1>
+      <h1>Bank Miner</h1>
     </div>
   </header>
   <main>
    <div class="row text-center">
      <div class="col-12 mt-4">
-       <img id="clickBank" src="bankIcon.png" alt="" onclick="mine(cash)">
+      <p>click bank to take a lil</p>
      </div>
-     <div class="col-12 mt-3">
-       <h3>Cash : <span id="cashDisplay" class="text-success"></span></h3>
+     <div class="col-12">
+       <img id="clickBank" src="bank.png" alt="" onclick="mine(cash)">
+     </div>
+     <div class="col-12 mt-4">
+       <h3>Cash : <span id="cashDisplay" class="text-light"></span></h3>
      </div>
    </div>
    <div class="row text-center">
-     <div class="col-12 text-info mt-3">
-       <h4>Upgrades</h4>
+     <div class="col-12 text-warning mt-3">
+       <h4>Upgrades:</h4>
      </div>
     <div class="col-12 text-center mt-3" id="upgradeBox">
 

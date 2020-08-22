@@ -1,18 +1,18 @@
 let cash = 0;
 
 let clickUpgrades = [
-  { name: "Duffle",
-    price: 50,
+  { name: "Backpack",
+    price: 40,
     quantity: 0,
     multiplier: 1
   },
-  { name: "Gun",
+  { name: "Duffle",
     price: 300,
     quantity: 0,
     multiplier: 5
   },
-  { name: "C4",
-    price: 1200,
+  { name: "Wheelbarrow",
+    price: 1500,
     quantity: 0,
     multiplier: 15
   }
@@ -20,15 +20,15 @@ let clickUpgrades = [
 ]
 let automaticUpgrades = [{
     name: "Hack In",
-    price: 1500,
+    price: 500,
     quantity: 0,
-    multiplier: 15
+    multiplier: 5
   },
   {
     name: "Armored Truck",
     price: 3000,
     quantity: 0,
-    multiplier: 25
+    multiplier: 15
   }
 ]
 
@@ -110,8 +110,8 @@ let upgradeArea = document.getElementById("upgradeBox")
 
 function drawUpgrades(){
   let template = ""
-  clickUpgrades.forEach(u => template += `<button id="upgradeButton" onclick="buyClickUpgrade('${u.name}')">$${u.price} - ${u.name}  x${u.quantity}</button>`)
-  automaticUpgrades.forEach(u => template += `<button id="upgradeButton" onclick="buyAutomaticUpgrade('${u.name}')">$${u.price} - ${u.name}  x${u.quantity}</button>`)
+  clickUpgrades.forEach(u => template += `<button id="upgradeButton" onclick="buyClickUpgrade('${u.name}')">$${u.price} - ${u.name} <br>x${u.quantity}</button>`)
+  automaticUpgrades.forEach(u => template += `<button id="upgradeButton" onclick="buyAutomaticUpgrade('${u.name}')">$${u.price} - ${u.name} <br> x${u.quantity}</button>`)
   upgradeArea.innerHTML = template
 }
 
