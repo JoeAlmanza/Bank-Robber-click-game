@@ -1,3 +1,5 @@
+// ---------- CASH AND ITEMS
+
 let cash = 0;
 
 let clickUpgrades = [
@@ -12,30 +14,32 @@ let clickUpgrades = [
     multiplier: 3
   },
   { name: "Wheelbarrow",
-    price: 800,
+    price: 600,
     quantity: 0,
-    multiplier: 7
+    multiplier: 5
   }
 
 ]
 let automaticUpgrades = [{
     name: "Hack In",
-    price: 800,
+    price: 300,
     quantity: 0,
-    multiplier: 2
+    multiplier: 1
   },
   {
     name: "Armored Truck",
-    price: 3000,
+    price: 300,
     quantity: 0,
-    multiplier: 8
+    multiplier: 5
   }
 ]
 
-let currentUpgrades = []
+// ---------- GAME FUNCTION
+
+let currentUpgrades = JSON.parse(localStorage.getItem("upgradeData")) || []
 
 function mine(){
-  cash++;
+  cash+= 10;
   for (let i = 0; i < clickUpgrades.length; i++) {
     const upgrade = clickUpgrades[i];
     if(upgrade.quantity > 0){
@@ -49,16 +53,12 @@ function mine(){
 function autoMine(){
   cash+= 0;
   for (let i = 0; i < automaticUpgrades.length; i++) {
-    const upgrade = automaticUpgrades[i];
+    let upgrade = automaticUpgrades[i];
     if(upgrade.quantity > 0){
       cash+= (upgrade.multiplier * upgrade.quantity)
     }
   }
   update()
-}
-
-function startInterval() {
-  setInterval(autoMine, 3000);
 }
 
 function update(){
@@ -73,41 +73,42 @@ function buyClickUpgrade(ugName){
     currentUpgrades.push(clickUpgrade)
     clickUpgrade.quantity++;
     clickUpgrade.price += 50;
-    console.log("purchased")
     update()
     drawUpgrades()
     }
     else{
-      console.log("you need more money, rob the bank")
+      return
     }
-  console.log(currentUpgrades)
+    localStorage.setItem("upgradeData", JSON.stringify(currentUpgrades))
 }
+
+function startInterval() {
+  setInterval(autoMine, 3000);
+}
+
 function buyAutomaticUpgrade(ugName){
     let autoUpgrade = automaticUpgrades.find(i => i.name == ugName)
-  if (cash >= autoUpgrade.price){
-    cash -= autoUpgrade.price;
-    currentUpgrades.push(autoUpgrade)
-    autoUpgrade.quantity++;
-    autoUpgrade.price += 150;
-    console.log("purchased")
-    update()
-    drawUpgrades()
-    startInterval()
-    }
-    else{
-      console.log("you need more money, rob the bank")
-    }
-  console.log(currentUpgrades)
+  if (cash >= autoUpgrade.price){  
+      cash -= autoUpgrade.price;
+      currentUpgrades.push(autoUpgrade)
+      autoUpgrade.quantity++;
+      autoUpgrade.price += 150;
+      update()
+      drawUpgrades()
+  }
+    localStorage.setItem("upgradeData", JSON.stringify(currentUpgrades))
 }
+
 
 let upgradeArea = document.getElementById("upgradeBox")
 
 function drawUpgrades(){
   let template = ""
+
   clickUpgrades.forEach(u => template += `<button id="upgradeButton" onclick="buyClickUpgrade('${u.name}')"><b>$${u.price} - ${u.name}</b> <br>x${u.quantity}  <br> <b>Current Bonus:</b> $${u.quantity * u.multiplier}<br> every click</button>`)
   automaticUpgrades.forEach(u => template += `<button id="upgradeButton" onclick="buyAutomaticUpgrade('${u.name}')"><b>$${u.price} - ${u.name}</b> <br> x${u.quantity}  <br> <b>Current Bonus:</b> $${u.quantity * u.multiplier}<br> every 3 seconds</button>`)
   upgradeArea.innerHTML = template
 }
-
+startInterval()
 drawUpgrades()
 
