@@ -9,26 +9,26 @@ let clickUpgrades = [
   { name: "Duffle",
     price: 300,
     quantity: 0,
-    multiplier: 5
+    multiplier: 3
   },
   { name: "Wheelbarrow",
-    price: 1500,
+    price: 800,
     quantity: 0,
-    multiplier: 15
+    multiplier: 7
   }
 
 ]
 let automaticUpgrades = [{
     name: "Hack In",
-    price: 500,
+    price: 800,
     quantity: 0,
-    multiplier: 5
+    multiplier: 2
   },
   {
     name: "Armored Truck",
     price: 3000,
     quantity: 0,
-    multiplier: 15
+    multiplier: 8
   }
 ]
 
@@ -42,12 +42,6 @@ function mine(){
       cash+= (upgrade.multiplier * upgrade.quantity)
     }
   }
-  // if(automaticUpgrades[0].quantity > 0){
-  //   cash+= (automaticUpgrades[0].multiplier * automaticUpgrades[0].quantity)
-  // }
-  // if(automaticUpgrades[1].quantity > 0){
-  //   cash+= (automaticUpgrades[0].multiplier * automaticUpgrades[1].quantity)
-  // }
   console.log(cash);
   update()
 }
@@ -64,7 +58,7 @@ function autoMine(){
 }
 
 function startInterval() {
-  setInterval(autoMine, 2000);
+  setInterval(autoMine, 3000);
 }
 
 function update(){
@@ -110,8 +104,8 @@ let upgradeArea = document.getElementById("upgradeBox")
 
 function drawUpgrades(){
   let template = ""
-  clickUpgrades.forEach(u => template += `<button id="upgradeButton" onclick="buyClickUpgrade('${u.name}')">$${u.price} - ${u.name} <br>x${u.quantity}</button>`)
-  automaticUpgrades.forEach(u => template += `<button id="upgradeButton" onclick="buyAutomaticUpgrade('${u.name}')">$${u.price} - ${u.name} <br> x${u.quantity}</button>`)
+  clickUpgrades.forEach(u => template += `<button id="upgradeButton" onclick="buyClickUpgrade('${u.name}')"><b>$${u.price} - ${u.name}</b> <br>x${u.quantity}  <br> <b>Current Bonus:</b> $${u.quantity * u.multiplier}<br> every click</button>`)
+  automaticUpgrades.forEach(u => template += `<button id="upgradeButton" onclick="buyAutomaticUpgrade('${u.name}')"><b>$${u.price} - ${u.name}</b> <br> x${u.quantity}  <br> <b>Current Bonus:</b> $${u.quantity * u.multiplier}<br> every 3 seconds</button>`)
   upgradeArea.innerHTML = template
 }
 
