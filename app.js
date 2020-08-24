@@ -99,9 +99,9 @@ let upgradeArea = document.getElementById("upgradeBox")
 
 function drawUpgrades(){
   let template = ""
-  clickUpgrades.forEach(u => template += `<button id="upgradeButton" onclick="buyClickUpgrade('${u.name}')"><b>$${u.price} - ${u.name}</b> <br>x${u.quantity}  <br> <b>Current Bonus:</b> $${u.quantity * u.multiplier}<br> every click</button>`)
+  clickUpgrades.forEach(u => template += `<button class="bg-secondary" id="upgradeButton" onclick="buyClickUpgrade('${u.name}')"><b class="text-info">$${u.price} - ${u.name}</b> <br>x${u.quantity}  <br> <b class="text-success">Current Bonus:</b> $${u.quantity * u.multiplier}<br> every click</button>`)
 
-  automaticUpgrades.forEach(u => template += `<button id="upgradeButton" onclick="buyAutomaticUpgrade('${u.name}')"><b>$${u.price} - ${u.name}</b> <br> x${u.quantity}  <br> <b>Current Bonus:</b> $${u.quantity * u.multiplier}<br> every 3 seconds</button>`)
+  automaticUpgrades.forEach(u => template += `<button class="bg-secondary "id="upgradeButton" onclick="buyAutomaticUpgrade('${u.name}')"><b class="text-info">$${u.price} - ${u.name}</b> <br> x${u.quantity}  <br> <b class="text-success">Current Bonus:</b> $${u.quantity * u.multiplier}<br> every 3 seconds</button>`)
   upgradeArea.innerHTML = template
 }
 
