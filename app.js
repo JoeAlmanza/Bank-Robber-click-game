@@ -1,8 +1,8 @@
 // ---------- CASH AND ITEMS
 
-let cash = 0;
+let cash = JSON.parse(localStorage.getItem("cashData")) || 0;
 
-let clickUpgrades = [
+let clickUpgrades = JSON.parse(localStorage.getItem("upgradeData")) || [
 { name: "Backpack",
   price: 40,
   quantity: 0,
@@ -19,7 +19,7 @@ let clickUpgrades = [
   multiplier: 5
 }
 ]
-let automaticUpgrades = [{
+let automaticUpgrades = JSON.parse(localStorage.getItem("autoUpgradeData")) || [{
   name: "Hack In",
   price: 300,
   quantity: 0,
@@ -35,11 +35,12 @@ let automaticUpgrades = [{
 
 // ---------- GAME FUNCTION
 
-let currentUpgrades = JSON.parse(localStorage.getItem("upgradeData")) || []
+// let currentUpgrades = JSON.parse(localStorage.getItem("upgradeData")) || []
 
 function update(){
   let cashDisplay = document.getElementById("cashDisplay")
   cashDisplay.innerHTML = `${cash}`
+  localStorage.setItem("cashData", JSON.stringify(cash))
 }
 
 function mine(){
@@ -69,26 +70,26 @@ function buyClickUpgrade(ugName){
   let clickUpgrade = clickUpgrades.find(i => i.name == ugName)
   if (cash >= clickUpgrade.price){
     cash -= clickUpgrade.price;
-    currentUpgrades.push(clickUpgrade)
     clickUpgrade.quantity++;
     clickUpgrade.price += 50;
     update()
     drawUpgrades()
   }
-  localStorage.setItem("upgradeData", JSON.stringify(currentUpgrades))
+  localStorage.setItem("upgradeData", JSON.stringify(clickUpgrades))
+  localStorage.setItem("cashData", JSON.stringify(cash))
 }
 
 function buyAutomaticUpgrade(ugName){
     let autoUpgrade = automaticUpgrades.find(i => i.name == ugName)
   if (cash >= autoUpgrade.price){  
     cash -= autoUpgrade.price;
-    currentUpgrades.push(autoUpgrade)
     autoUpgrade.quantity++;
     autoUpgrade.price += 150;
     update()
     drawUpgrades()
   }
-  localStorage.setItem("upgradeData", JSON.stringify(currentUpgrades))
+  localStorage.setItem("autoUpgradeData", JSON.stringify(automaticUpgrades))
+  localStorage.setItem("cashData", JSON.stringify(cash))
 }
 
 function startInterval() {
