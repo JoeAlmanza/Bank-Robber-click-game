@@ -9,3 +9,7 @@ body{
 img{
   height: 30vh;
 }
+
+button {
+  background-color: rgb(84, 84, 84);
+}
